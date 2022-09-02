@@ -7,12 +7,16 @@ export class AppointmentsManagementService {
   constructor() {}
 
   getAppointments(currentDate: Date) {
-    return this.appointments.has(currentDate)
-      ? this.appointments.get(currentDate)
-      : [];
+    const key = this.mapKey(currentDate);
+    return this.appointments.has(key) ? this.appointments.get(key) : [];
   }
 
   setAppointments(currentDate: Date, appointments: Duration[]) {
-    this.appointments.set(currentDate, appointments);
+    const key = this.mapKey(currentDate);
+    this.appointments.set(key, appointments);
+  }
+
+  mapKey(date: Date) {
+    return date.getFullYear() + date.getMonth() + date.getDate();
   }
 }
