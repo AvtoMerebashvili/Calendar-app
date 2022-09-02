@@ -1,7 +1,6 @@
 .component {
   height: 100vh;
   display: flex;
-  //   align-items: center;
   justify-content: space-evenly;
   padding: 2% 0 2% 1%;
 
@@ -11,5 +10,10 @@
     flex-direction: column;
     align-items: center;
     gap: 8%;
+  }
+  .right-side {
+    padding-top: 100px;
+    height: 650px;
+    overflow-y: scroll;
   }
 }
