@@ -16,6 +16,7 @@ export class InputComponent implements OnInit {
   @Input() controlName = '';
   @Input() label = '';
   @Input() type: 'text' | 'number' = 'text';
+  @Input() placeholder: string = 'hh,mm';
 
   constructor(private cc: ControlContainer) {}
 

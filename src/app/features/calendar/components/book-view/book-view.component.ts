@@ -23,8 +23,12 @@ export class BookViewComponent implements OnInit {
     this.dialog
       .open(BookTimeComponent, {
         panelClass: 'book-time-cdk',
+        data: this.dateState,
       })
-      .afterClosed()
-      .subscribe((v) => console.log(v));
+      .afterClosed();
+    // .subscribe((v) =>{
+    //   if(v)
+    //     // this.dateState.set
+    // });
   }
 }

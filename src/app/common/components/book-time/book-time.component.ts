@@ -11,6 +11,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { hoursValidator } from '../../validators/hours.validator';
 
 @Component({
   selector: 'app-book-time',
@@ -20,8 +21,8 @@ import {
 })
 export class BookTimeComponent implements OnInit {
   form = this.formBuilder.group({
-    start: new FormControl('', [Validators.required]),
-    end: new FormControl('', [Validators.required]),
+    start: new FormControl('', [Validators.required, hoursValidator()]),
+    end: new FormControl('', [Validators.required, hoursValidator()]),
   });
 
   constructor(
