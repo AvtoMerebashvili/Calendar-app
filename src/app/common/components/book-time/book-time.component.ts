@@ -43,16 +43,26 @@ export class BookTimeComponent implements OnInit {
     return date.getHours() + ':' + date.getMinutes();
   }
 
-  closeDialog() {
+  onConfirm() {
     this.dialog.close(
       this.form.valid
         ? {
             update: this.isUpdate,
             appointment: this.form.value,
-            toDeleteId: this.appointment?.id,
+            previousAppointmentId: this.appointment?.id,
+            delete: false,
           }
         : null
     );
+  }
+
+  onDeleteAppointment() {
+    this.dialog.close({
+      update: this.isUpdate,
+      appointment: this.form.value,
+      previousAppointmentId: this.appointment?.id,
+      deleting: true,
+    });
   }
 
   get start(): FormControl {

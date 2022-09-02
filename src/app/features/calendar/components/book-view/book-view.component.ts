@@ -44,10 +44,10 @@ export class BookViewComponent implements OnInit {
       .afterClosed()
       .pipe(
         filter((data) => data != null),
-        map(({ update, appointment, toDeleteId }) => {
+        map(({ update, appointment, previousAppointmentId, deleting }) => {
           return {
             update,
-            toDeleteId,
+            previousAppointmentId,
             appointment: {
               startHour: appointment.start.split(':')[0],
               startMin: appointment.start.split(':')[1] || null,
@@ -55,9 +55,10 @@ export class BookViewComponent implements OnInit {
               endMin: appointment.end.split(':')[1] || null,
               title: appointment.title,
             },
+            deleting,
           };
         }),
-        map(({ update, appointment, toDeleteId }) => {
+        map(({ update, appointment, previousAppointmentId, deleting }) => {
           const newAppointment: Appointment = {
             start: new Date(
               this.dateState.setHours(
@@ -71,20 +72,25 @@ export class BookViewComponent implements OnInit {
             id: getRandomId(),
             title: appointment.title,
           };
-          return { update, newAppointment: newAppointment, toDeleteId };
+          return {
+            update,
+            newAppointment: newAppointment,
+            previousAppointmentId,
+            deleting,
+          };
         }),
-        map(({ update, newAppointment, toDeleteId }) => {
+        map(({ update, newAppointment, previousAppointmentId, deleting }) => {
           const exicstingAppointments = [
             ...this.management.getAppointments(this.dateState),
           ];
           let updatedAppointments = [];
 
-          if (update) {
+          if (update || deleting) {
             updatedAppointments = exicstingAppointments.filter(
-              (appointment) => appointment.id != toDeleteId.toString()
+              (appointment) =>
+                appointment.id != previousAppointmentId.toString()
             );
-
-            updatedAppointments.push(newAppointment);
+            if (!deleting) updatedAppointments.push(newAppointment);
           } else {
             updatedAppointments = exicstingAppointments;
             updatedAppointments.push(newAppointment);

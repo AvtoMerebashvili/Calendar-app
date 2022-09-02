@@ -12,7 +12,7 @@
   </div>
   <div class="right-side">
     <app-drag-and-drop
-      [appointments]="allAppointments$ | async"
+      [appointments$]="allAppointments$"
       (chosenAppointment)="onSelectAppointment($event)"
       (appointmentChanged)="onAppointmentChange($event)"
     ></app-drag-and-drop>

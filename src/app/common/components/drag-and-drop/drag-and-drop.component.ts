@@ -6,7 +6,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Appointment } from '../../interfaces/duration.interface';
 
 @Component({
@@ -16,7 +16,7 @@ import { Appointment } from '../../interfaces/duration.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DragAndDropComponent implements OnInit {
-  @Input() appointments: Appointment[] | null = null;
+  @Input() appointments$: Observable<Appointment[]> | null = null;
   @Output() chosenAppointment = new EventEmitter<Appointment>();
   @Output() appointmentChanged = new EventEmitter<Appointment>();
   draging = false;

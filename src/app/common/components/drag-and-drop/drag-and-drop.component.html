@@ -5,7 +5,7 @@
   </div>
   <div
     class="example-box"
-    *ngFor="let appointment of appointments"
+    *ngFor="let appointment of appointments$ | async"
     cdkDragLockAxis="y"
     cdkDrag
     (cdkDragStarted)="dragingStarted()"
