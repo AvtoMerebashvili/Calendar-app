@@ -1,1 +1,13 @@
-<app-drag-and-drop></app-drag-and-drop>
+<div class="component">
+  <div class="left-side">
+    <div class="create-appointment">
+      <app-button text="create new appointment"></app-button>
+    </div>
+    <div class="calendar">
+      <app-calendar (selectedDate)="onSelectDate($event)"></app-calendar>
+    </div>
+  </div>
+  <div class="right-side">
+    <app-drag-and-drop></app-drag-and-drop>
+  </div>
+</div>

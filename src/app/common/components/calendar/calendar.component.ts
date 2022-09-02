@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +13,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit {
-  selected: Date | null = null;
+  selected: Date | any;
+  @Output() selectedDate = new EventEmitter();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.selectedDate.emit(new Date());
+  }
+
+  onChange(newDate: any) {
+    this.selectedDate.emit(this.selected);
+  }
 }

@@ -1,3 +1,5 @@
 <div class="component">
-  <button mat-raised-button color="primary">Primary</button>
+  <button mat-raised-button color="primary" (click)="clicked.emit()">
+    {{ text }}
+  </button>
 </div>

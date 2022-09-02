@@ -3,13 +3,9 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Input,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
 } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DragAndDropItems } from '../../interfaces/drag-and-drop-items.interface';
 import { BehaviorSubject } from 'rxjs';
+import { Duration } from '../../interfaces/duration.interface';
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -18,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DragAndDropComponent implements OnInit {
-  @Input() times: DragAndDropItems[] = [
+  @Input() times: Duration[] = [
     {
       start: new Date(2001, 12, 1, 11, 21),
       end: new Date(2001, 12, 1, 12, 21),
@@ -36,20 +32,20 @@ export class DragAndDropComponent implements OnInit {
     }
   }
 
-  calculatePosition(time: DragAndDropItems) {
+  calculatePosition(time: Duration) {
     return -(1440 - this.getEndTime(time) + 60);
   }
 
-  calculateHeight(time: DragAndDropItems) {
+  calculateHeight(time: Duration) {
     return this.getEndTime(time) - this.getStartTime(time);
   }
 
-  getStartTime(time: DragAndDropItems) {
+  getStartTime(time: Duration) {
     const hours = time.start.getHours() * 60;
     const minutes = time.start.getMinutes() * 0.6;
     return hours + minutes;
   }
-  getEndTime(time: DragAndDropItems) {
+  getEndTime(time: Duration) {
     const hours = time.end.getHours() * 60;
     const minutes = time.start.getMinutes() * 0.6;
     return hours + minutes;

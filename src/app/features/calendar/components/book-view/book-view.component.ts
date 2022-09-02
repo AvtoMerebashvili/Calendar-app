@@ -7,7 +7,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookViewComponent implements OnInit {
+  dateState: Date = new Date();
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  onSelectDate(date: Date) {
+    this.dateState = date;
+  }
 }
