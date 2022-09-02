@@ -5,6 +5,7 @@ import { ButtonModule } from './button/button.module';
 import { DragAndDropModule } from './drag-and-drop/drag-and-drop.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { BookTimeModule } from './book-time/book-time.module';
+import { InputModule } from './input/input.module';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { BookTimeModule } from './book-time/book-time.module';
     DragAndDropModule,
     AppointmentModule,
     BookTimeModule,
+    InputModule,
   ],
 })
 export class ComponentsModule {}

@@ -1,1 +1,7 @@
-<p>book-time works!</p>
+<div class="component">
+  <form [formGroup]="form">
+    <app-input controlName="start" label="write start time"></app-input>
+    <app-input controlName="end" label="write end time"></app-input>
+  </form>
+  <app-button (clicked)="closeDialog()" text="confirm"></app-button>
+</div>
