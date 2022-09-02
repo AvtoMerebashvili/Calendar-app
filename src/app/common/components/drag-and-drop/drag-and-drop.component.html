@@ -5,14 +5,17 @@
   </div>
   <div
     class="example-box"
-    *ngFor="let time of times"
+    *ngFor="let appointment of appointments"
     cdkDragLockAxis="y"
     cdkDrag
     [ngStyle]="{
-      height: calculateHeight(time) + 'px',
-      top: calculatePosition(time) + 'px'
+      height: calculateHeight(appointment) + 'px',
+      top: calculatePosition(appointment) + 'px'
     }"
   >
-    <app-appointment [time]="time"></app-appointment>
+    <app-appointment
+      [time]="appointment"
+      (click)="onAppointmentClick(appointment)"
+    ></app-appointment>
   </div>
 </div>

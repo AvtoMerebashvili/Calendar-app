@@ -11,6 +11,9 @@
     </div>
   </div>
   <div class="right-side">
-    <app-drag-and-drop [times]="allAppointments$ | async"></app-drag-and-drop>
+    <app-drag-and-drop
+      [appointments]="allAppointments$ | async"
+      (chosenAppointment)="onSelectAppointment($event)"
+    ></app-drag-and-drop>
   </div>
 </div>

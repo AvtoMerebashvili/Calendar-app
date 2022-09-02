@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Duration } from 'src/app/common/interfaces/duration.interface';
+import { Appointment } from 'src/app/common/interfaces/duration.interface';
 
 @Injectable()
 export class AppointmentsManagementService {
@@ -11,7 +11,7 @@ export class AppointmentsManagementService {
     return this.appointments.has(key) ? this.appointments.get(key) : [];
   }
 
-  setAppointments(currentDate: Date, appointments: Duration[]) {
+  setAppointments(currentDate: Date, appointments: Appointment[]) {
     const key = this.mapKey(currentDate);
     this.appointments.set(key, appointments);
   }

@@ -1,6 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Inject,
+} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Appointment } from '../../interfaces/duration.interface';
 import { hoursValidator } from '../../validators/hours.validator';
 
 @Component({
@@ -10,6 +16,7 @@ import { hoursValidator } from '../../validators/hours.validator';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookTimeComponent implements OnInit {
+  isUpdate: boolean = false;
   form = this.formBuilder.group({
     start: new FormControl('', [Validators.required, hoursValidator()]),
     end: new FormControl('', [Validators.required, hoursValidator()]),
@@ -17,12 +24,40 @@ export class BookTimeComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dialog: MatDialogRef<BookTimeComponent>
+    private dialog: MatDialogRef<BookTimeComponent>,
+    @Inject(MAT_DIALOG_DATA) public appointment: Appointment
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const appointment = this.appointment;
+    if (appointment) {
+      this.isUpdate = true;
+      this.start.setValue(this.getTimeToSet(appointment.start));
+      this.end.setValue(this.getTimeToSet(appointment.end));
+    }
+  }
+
+  getTimeToSet(date: Date) {
+    return date.getHours() + ':' + date.getMinutes();
+  }
 
   closeDialog() {
-    this.dialog.close(this.form.valid ? this.form.value : null);
+    this.dialog.close(
+      this.form.valid
+        ? {
+            update: this.isUpdate,
+            appointment: this.form.value,
+            toDeleteId: this.appointment?.id,
+          }
+        : null
+    );
+  }
+
+  get start(): FormControl {
+    return this.form.get('start') as FormControl;
+  }
+
+  get end(): FormControl {
+    return this.form.get('end') as FormControl;
   }
 }

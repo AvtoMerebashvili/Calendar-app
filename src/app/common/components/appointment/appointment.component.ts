@@ -4,8 +4,8 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Duration } from '../../interfaces/duration.interface';
+import { getRandomId } from '../../helper/random.generator';
+import { Appointment } from '../../interfaces/duration.interface';
 
 @Component({
   selector: 'app-appointment',
@@ -14,9 +14,10 @@ import { Duration } from '../../interfaces/duration.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentComponent implements OnInit {
-  @Input() time: Duration = {
+  @Input() time: Appointment = {
     start: new Date(),
     end: new Date(),
+    id: getRandomId(),
   };
 
   constructor() {}

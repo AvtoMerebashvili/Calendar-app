@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function hoursValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const time = control.value.split(',');
+    const time = control.value.split(':');
     if (time.length == 1) {
       if (time[0] >= 24 || time[0] < 0)
         return {

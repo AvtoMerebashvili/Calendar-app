@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BookTimeComponent } from 'src/app/common/components/book-time/book-time.component';
-import { map, tap } from 'rxjs/operators';
-import { Duration } from 'src/app/common/interfaces/duration.interface';
+import { filter, map, tap } from 'rxjs/operators';
+
 import { AppointmentsManagementService } from '../../services/appointments-management.service';
 import { BehaviorSubject } from 'rxjs';
+import { Appointment } from 'src/app/common/interfaces/duration.interface';
+import { getRandomId } from 'src/app/common/helper/random.generator';
 
 @Component({
   selector: 'app-book-view',
@@ -13,7 +15,7 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookViewComponent implements OnInit {
-  allAppointments$ = new BehaviorSubject<Duration[]>([]);
+  allAppointments$ = new BehaviorSubject<Appointment[]>([]);
   dateState: Date = new Date();
 
   constructor(
@@ -28,35 +30,65 @@ export class BookViewComponent implements OnInit {
     this.updateView();
   }
 
-  openBooking() {
+  onSelectAppointment(appointment: Appointment | Event) {
+    // console.log(appointment);
+    this.openBooking(appointment as Appointment);
+  }
+
+  openBooking(appointment?: Appointment) {
     this.dialog
       .open(BookTimeComponent, {
         panelClass: 'book-time-cdk',
-        data: this.dateState,
+        data: appointment,
       })
       .afterClosed()
       .pipe(
-        map((v) => {
+        filter((data) => data != null),
+        map(({ update, appointment, toDeleteId }) => {
           return {
-            startHour: v.start.split(',')[0],
-            startMin: v.start.split(',')[1] || null,
-            endHour: v.end.split(',')[0],
-            endMin: v.end.split(',')[1] || null,
+            update,
+            toDeleteId,
+            appointment: {
+              startHour: appointment.start.split(':')[0],
+              startMin: appointment.start.split(':')[1] || null,
+              endHour: appointment.end.split(':')[0],
+              endMin: appointment.end.split(':')[1] || null,
+            },
           };
         }),
-        map((v) => {
-          const newAppointment: Duration = {
-            start: new Date(this.dateState.setHours(v.startHour, v.startMin)),
-            end: new Date(this.dateState.setHours(v.endHour, v.endMin)),
+        map(({ update, appointment, toDeleteId }) => {
+          const newAppointment: Appointment = {
+            start: new Date(
+              this.dateState.setHours(
+                appointment.startHour,
+                appointment.startMin
+              )
+            ),
+            end: new Date(
+              this.dateState.setHours(appointment.endHour, appointment.endMin)
+            ),
+            id: getRandomId(),
           };
-          return newAppointment;
+          return { update, newAppointment: newAppointment, toDeleteId };
         }),
-        map((newAppointment) => {
+        map(({ update, newAppointment, toDeleteId }) => {
           const exicstingAppointments = [
             ...this.management.getAppointments(this.dateState),
           ];
-          exicstingAppointments.push(newAppointment);
-          return exicstingAppointments;
+          let updatedAppointments = [];
+
+          if (update) {
+            updatedAppointments = exicstingAppointments.filter(
+              (appointment) => appointment.id != toDeleteId.toString()
+            );
+
+            updatedAppointments.push(newAppointment);
+          } else {
+            updatedAppointments = exicstingAppointments;
+            updatedAppointments.push(newAppointment);
+          }
+
+          return updatedAppointments;
         }),
         tap((newAppointmentsArray) =>
           this.management.setAppointments(this.dateState, newAppointmentsArray)

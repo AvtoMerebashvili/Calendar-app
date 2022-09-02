@@ -1,4 +1,5 @@
-export interface Duration {
+export interface Appointment {
   start: Date;
   end: Date;
+  id: string;
 }
