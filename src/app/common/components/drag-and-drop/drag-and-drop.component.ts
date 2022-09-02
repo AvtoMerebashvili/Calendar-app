@@ -14,7 +14,7 @@ import { Duration } from '../../interfaces/duration.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DragAndDropComponent implements OnInit {
-  @Input() times: Duration[] = [
+  @Input() times: Duration[] | null = [
     {
       start: new Date(2001, 12, 1, 11, 21),
       end: new Date(2001, 12, 1, 12, 21),

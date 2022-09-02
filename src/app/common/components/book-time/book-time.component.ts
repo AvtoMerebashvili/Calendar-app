@@ -1,16 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Inject,
-} from '@angular/core';
-import { inject } from '@angular/core/testing';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { hoursValidator } from '../../validators/hours.validator';
 
 @Component({
@@ -27,8 +17,7 @@ export class BookTimeComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dialog: MatDialogRef<BookTimeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    private dialog: MatDialogRef<BookTimeComponent>
   ) {}
 
   ngOnInit(): void {}
