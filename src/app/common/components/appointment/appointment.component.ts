@@ -22,29 +22,3 @@ export class AppointmentComponent implements OnInit {
 
   ngOnInit(): void {}
 }
-
-// ngOnChanges(): void {
-//   this.calculateWidth();
-// }
-
-// calculateWidth() {
-//   const duration = this.getEndTime() - this.getStartTime();
-//   const width = this.getPixels(duration);
-//   this.height$.next(width);
-// }
-
-// getPixels(width: number) {
-//   return width.toString() + 'px';
-// }
-
-// getStartTime() {
-//   console.log(this.duration);
-//   const hours = this.duration?.start.getHours() as number;
-//   this.start$.next(hours);
-//   return hours;
-// }
-// getEndTime() {
-//   const hours = this.duration?.end.getHours() as number;
-//   this.end$.next(hours);
-//   return hours;
-// }

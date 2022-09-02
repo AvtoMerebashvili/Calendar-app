@@ -17,12 +17,11 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./drag-and-drop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DragAndDropComponent implements OnInit, AfterViewInit {
-  @ViewChild('row') rowRef: ElementRef | null = null;
+export class DragAndDropComponent implements OnInit {
   @Input() times: DragAndDropItems[] = [
     {
       start: new Date(2001, 12, 1, 11, 21),
-      end: new Date(2001, 12, 1, 15, 21),
+      end: new Date(2001, 12, 1, 12, 21),
     },
   ];
   rowWidth$ = new BehaviorSubject<number>(0);
@@ -37,11 +36,19 @@ export class DragAndDropComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.rowWidth$.next(this.rowRef?.nativeElement.offsetWidth);
+  calculateHeight(time: DragAndDropItems) {
+    console.log(this.getEndTime(time) - this.getStartTime(time));
+    return this.getEndTime(time) - this.getStartTime(time);
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.times, event.previousIndex, event.currentIndex);
+  getStartTime(time: DragAndDropItems) {
+    const hours = time.start.getHours() * 60;
+    const minutes = time.start.getMinutes() * 0.6;
+    return hours + minutes;
+  }
+  getEndTime(time: DragAndDropItems) {
+    const hours = time.end.getHours() * 60;
+    const minutes = time.start.getMinutes() * 0.6;
+    return hours + minutes;
   }
 }

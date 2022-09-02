@@ -1,10 +1,15 @@
 <div class="component">
   <div class="row" *ngFor="let row of rows">
     <div class="row-name">{{ row }} pm</div>
-    <div class="appointment">
-      <div class="example-box" cdkDragLockAxis="y" cdkDrag>
-        <app-appointment *ngFor="let time of times"></app-appointment>
-      </div>
-    </div>
+    <div class="appointment"></div>
+  </div>
+  <div
+    class="example-box"
+    *ngFor="let time of times"
+    cdkDragLockAxis="y"
+    cdkDrag
+    [ngStyle]="{ height: calculateHeight(time) + 'px' }"
+  >
+    <app-appointment></app-appointment>
   </div>
 </div>
