@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { BookTimeComponent } from 'src/app/common/components/book-time/book-time.component';
 
 @Component({
   selector: 'app-book-view',
@@ -9,11 +11,17 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 export class BookViewComponent implements OnInit {
   dateState: Date = new Date();
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   onSelectDate(date: Date) {
     this.dateState = date;
+  }
+
+  openBooking() {
+    this.dialog.open(BookTimeComponent, {
+      panelClass: 'book-time-cdk',
+    });
   }
 }

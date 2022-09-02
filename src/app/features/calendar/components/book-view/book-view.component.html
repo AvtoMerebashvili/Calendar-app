@@ -1,7 +1,10 @@
 <div class="component">
   <div class="left-side">
     <div class="create-appointment">
-      <app-button text="create new appointment"></app-button>
+      <app-button
+        text="create new appointment"
+        (clicked)="openBooking()"
+      ></app-button>
     </div>
     <div class="calendar">
       <app-calendar (selectedDate)="onSelectDate($event)"></app-calendar>
