@@ -15,6 +15,7 @@ import {
 })
 export class ButtonComponent implements OnInit {
   @Input() text = '';
+  @Input() color = '#3F51B5';
   @Output() clicked = new EventEmitter();
 
   constructor() {}

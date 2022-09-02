@@ -1,5 +1,10 @@
 <div class="component">
-  <button mat-raised-button color="primary" (click)="clicked.emit()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="clicked.emit()"
+    [ngStyle]="{ backgroundColor: color }"
+  >
     {{ text }}
   </button>
 </div>

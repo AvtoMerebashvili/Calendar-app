@@ -15,7 +15,12 @@
     </div>
   </form>
   <div class="button">
-    <app-button (clicked)="onDeleteAppointment()" text="remove"></app-button>
+    <app-button
+      (clicked)="onDeleteAppointment()"
+      text="remove"
+      color="red"
+      *ngIf="isUpdate"
+    ></app-button>
     <app-button (clicked)="onConfirm()" text="confirm"></app-button>
   </div>
 </div>
