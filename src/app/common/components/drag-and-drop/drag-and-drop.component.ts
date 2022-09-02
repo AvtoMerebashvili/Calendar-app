@@ -18,6 +18,7 @@ import { Appointment } from '../../interfaces/duration.interface';
 export class DragAndDropComponent implements OnInit {
   @Input() appointments: Appointment[] | null = null;
   @Output() chosenAppointment = new EventEmitter<Appointment>();
+  @Output() appointmentChanged = new EventEmitter<Appointment>();
   draging = false;
   rowWidth$ = new BehaviorSubject<number>(0);
   rowCount = 24;
@@ -58,7 +59,34 @@ export class DragAndDropComponent implements OnInit {
     this.draging = true;
   }
 
-  dragingEnded() {
+  dragingEnded(dragged: any, appointment: Appointment) {
     setTimeout(() => (this.draging = false), 100);
+    const calculatedTime = this.calculateTime(dragged.distance.y);
+    const newAppointment = { ...appointment };
+    const previousAppointmentStart = new Date(appointment.start.getTime());
+    newAppointment.start = new Date(
+      previousAppointmentStart.setHours(
+        previousAppointmentStart.getHours() + calculatedTime.hours,
+        previousAppointmentStart.getMinutes() + calculatedTime.minutes
+      )
+    );
+    const previousAppointmentEnd = new Date(appointment.end.getTime());
+    newAppointment.end = new Date(
+      previousAppointmentEnd.setHours(
+        previousAppointmentEnd.getHours() + calculatedTime.hours,
+        previousAppointmentEnd.getMinutes() + calculatedTime.minutes
+      )
+    );
+
+    this.appointmentChanged.emit(newAppointment);
+  }
+
+  calculateTime(pixels: number) {
+    const hours = Math.trunc(+(pixels / 60));
+    const minutes = +(pixels % 60);
+    return {
+      hours: hours,
+      minutes: minutes,
+    };
   }
 }

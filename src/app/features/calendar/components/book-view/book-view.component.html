@@ -14,6 +14,7 @@
     <app-drag-and-drop
       [appointments]="allAppointments$ | async"
       (chosenAppointment)="onSelectAppointment($event)"
+      (appointmentChanged)="onAppointmentChange($event)"
     ></app-drag-and-drop>
   </div>
 </div>

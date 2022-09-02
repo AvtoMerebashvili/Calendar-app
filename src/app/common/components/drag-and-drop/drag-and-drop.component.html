@@ -9,7 +9,7 @@
     cdkDragLockAxis="y"
     cdkDrag
     (cdkDragStarted)="dragingStarted()"
-    (cdkDragEnded)="dragingEnded()"
+    (cdkDragEnded)="dragingEnded($event, appointment)"
     (click)="onAppointmentClick(appointment)"
     [ngStyle]="{
       height: calculateHeight(appointment) + 'px',

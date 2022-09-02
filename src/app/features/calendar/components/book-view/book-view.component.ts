@@ -98,6 +98,20 @@ export class BookViewComponent implements OnInit {
       .subscribe();
   }
 
+  onAppointmentChange(appointment: Appointment) {
+    const exicstingAppointments = [
+      ...this.management.getAppointments(this.dateState),
+    ];
+    let updatedAppointments = [];
+
+    updatedAppointments = exicstingAppointments.filter(
+      (app) => app.id != appointment.id
+    );
+    updatedAppointments.push(appointment);
+    this.management.setAppointments(this.dateState, updatedAppointments);
+    this.updateView();
+  }
+
   updateView() {
     this.allAppointments$.next(this.management.getAppointments(this.dateState));
   }
