@@ -18,7 +18,7 @@ import { Appointment } from '../../interfaces/duration.interface';
 export class DragAndDropComponent implements OnInit {
   @Input() appointments: Appointment[] | null = null;
   @Output() chosenAppointment = new EventEmitter<Appointment>();
-
+  draging = false;
   rowWidth$ = new BehaviorSubject<number>(0);
   rowCount = 24;
   rows: number[] = [];
@@ -32,7 +32,7 @@ export class DragAndDropComponent implements OnInit {
   }
 
   onAppointmentClick(appointment: Appointment) {
-    this.chosenAppointment.emit(appointment);
+    if (!this.draging) this.chosenAppointment.emit(appointment);
   }
 
   calculatePosition(time: Appointment) {
@@ -52,5 +52,13 @@ export class DragAndDropComponent implements OnInit {
     const hours = time.end.getHours() * 60;
     const minutes = time.start.getMinutes() * 0.6;
     return hours + minutes;
+  }
+
+  dragingStarted() {
+    this.draging = true;
+  }
+
+  dragingEnded() {
+    setTimeout(() => (this.draging = false), 100);
   }
 }

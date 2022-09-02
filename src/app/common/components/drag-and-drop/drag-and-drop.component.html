@@ -8,14 +8,14 @@
     *ngFor="let appointment of appointments"
     cdkDragLockAxis="y"
     cdkDrag
+    (cdkDragStarted)="dragingStarted()"
+    (cdkDragEnded)="dragingEnded()"
+    (click)="onAppointmentClick(appointment)"
     [ngStyle]="{
       height: calculateHeight(appointment) + 'px',
       top: calculatePosition(appointment) + 'px'
     }"
   >
-    <app-appointment
-      [time]="appointment"
-      (click)="onAppointmentClick(appointment)"
-    ></app-appointment>
+    <app-appointment [time]="appointment"></app-appointment>
   </div>
 </div>
