@@ -36,7 +36,7 @@ export class DragAndDropComponent implements OnInit {
   }
 
   calculatePosition(time: Appointment) {
-    return -(1440 - this.getEndTime(time) + 60);
+    return this.getStartTime(time);
   }
 
   calculateHeight(time: Appointment) {
