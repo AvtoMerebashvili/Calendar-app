@@ -8,20 +8,16 @@
     background: white;
     border-radius: 4px;
     overflow: hidden;
+    height: min-content;
+    min-height: min-content;
   }
 
   .example-box {
-    padding: 20px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
     cursor: move;
     background: white;
-    font-size: 14px;
+    padding: 0;
+    min-height: 60px;
+    width: 100%;
   }
 
   .cdk-drag-preview {
@@ -48,5 +44,15 @@
     border: dotted 3px #999;
     min-height: 60px;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .row {
+    display: flex;
+    height: 100%;
+  }
+  .row-name {
+    border-right: 1px dashed #cccccc;
+    font: Roboto, "Helvetica Neue", sans-serif;
+    height: 100%;
   }
 }

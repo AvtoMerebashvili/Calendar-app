@@ -1,5 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DragAndDropItems } from '../../interfaces/drag-and-drop-items.interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -7,24 +17,28 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./drag-and-drop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DragAndDropComponent implements OnInit {
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi',
-    'Episode IX - The Rise of Skywalker',
+export class DragAndDropComponent implements OnInit, AfterViewInit {
+  @ViewChild('row') rowRef: ElementRef | null = null;
+  @Input() items: DragAndDropItems[] = [
+    {
+      name: 'gogit',
+      time: {
+        start: new Date(2001, 12, 1, 11, 21),
+        end: new Date(2001, 12, 1, 15, 21),
+      },
+    },
   ];
+  rowWidth$ = new BehaviorSubject<number>(0);
 
   constructor() {}
 
   ngOnInit(): void {}
 
+  ngAfterViewInit() {
+    this.rowWidth$.next(this.rowRef?.nativeElement.offsetWidth);
+  }
+
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 }

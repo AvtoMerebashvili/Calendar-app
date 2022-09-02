@@ -1,8 +1,14 @@
 <div class="component">
   <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let movie of movies" cdkDrag>
-      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-      {{ movie }}
+    <div class="row" *ngFor="let item of items" #row>
+      <div class="row-name">{{ item.name }}</div>
+      <div class="example-box" cdkDrag>
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+        <app-appointment
+          [duration]="item.time"
+          [parentWidth]="rowWidth$ | async"
+        ></app-appointment>
+      </div>
     </div>
   </div>
 </div>
