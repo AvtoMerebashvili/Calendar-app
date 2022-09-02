@@ -3,7 +3,6 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Input,
-  OnChanges,
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Duration } from '../../interfaces/duration.interface';
@@ -15,8 +14,10 @@ import { Duration } from '../../interfaces/duration.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentComponent implements OnInit {
-  @Input() start: string | number = 0;
-  @Input() end: string | number = 0;
+  @Input() time: Duration = {
+    start: new Date(),
+    end: new Date(),
+  };
 
   constructor() {}
 

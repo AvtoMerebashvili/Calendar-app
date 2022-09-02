@@ -8,8 +8,11 @@
     *ngFor="let time of times"
     cdkDragLockAxis="y"
     cdkDrag
-    [ngStyle]="{ height: calculateHeight(time) + 'px' }"
+    [ngStyle]="{
+      height: calculateHeight(time) + 'px',
+      top: calculatePosition(time) + 'px'
+    }"
   >
-    <app-appointment></app-appointment>
+    <app-appointment [time]="time"></app-appointment>
   </div>
 </div>

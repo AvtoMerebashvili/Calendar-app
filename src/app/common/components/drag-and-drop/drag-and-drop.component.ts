@@ -36,8 +36,11 @@ export class DragAndDropComponent implements OnInit {
     }
   }
 
+  calculatePosition(time: DragAndDropItems) {
+    return -(1440 - this.getEndTime(time) + 60);
+  }
+
   calculateHeight(time: DragAndDropItems) {
-    console.log(this.getEndTime(time) - this.getStartTime(time));
     return this.getEndTime(time) - this.getStartTime(time);
   }
 
