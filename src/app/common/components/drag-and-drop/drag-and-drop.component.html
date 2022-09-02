@@ -1,13 +1,9 @@
 <div class="component">
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="row" *ngFor="let item of items" #row>
-      <div class="row-name">{{ item.name }}</div>
-      <div class="example-box" cdkDrag>
-        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-        <app-appointment
-          [duration]="item.time"
-          [parentWidth]="rowWidth$ | async"
-        ></app-appointment>
+  <div class="row" *ngFor="let row of rows">
+    <div class="row-name">{{ row }} pm</div>
+    <div class="appointment">
+      <div class="example-box" cdkDragLockAxis="y" cdkDrag>
+        <app-appointment *ngFor="let time of times"></app-appointment>
       </div>
     </div>
   </div>
