@@ -14,10 +14,11 @@ import { Appointment } from '../../interfaces/duration.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppointmentComponent implements OnInit {
-  @Input() time: Appointment = {
+  @Input() appointment: Appointment = {
     start: new Date(),
     end: new Date(),
     id: getRandomId(),
+    title: '',
   };
 
   constructor() {}

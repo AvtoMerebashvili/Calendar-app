@@ -1,0 +1,13 @@
+.component {
+  display: flex;
+  flex-direction: column;
+  form {
+    .hours {
+      display: flex;
+      gap: 2px;
+    }
+  }
+  .button {
+    margin: 0 0 0 auto;
+  }
+}

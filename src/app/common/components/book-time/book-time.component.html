@@ -1,7 +1,20 @@
 <div class="component">
   <form [formGroup]="form">
-    <app-input controlName="start" label="write start time"></app-input>
-    <app-input controlName="end" label="write end time"></app-input>
+    <app-input
+      controlName="title"
+      label="title"
+      placeholder="what is up"
+    ></app-input>
+    <div class="hours">
+      <app-input
+        controlName="start"
+        label="starts"
+        placeholder="HH:MM"
+      ></app-input>
+      <app-input controlName="end" label="ends" placeholder="HH:MM"></app-input>
+    </div>
   </form>
-  <app-button (clicked)="closeDialog()" text="confirm"></app-button>
+  <div class="button">
+    <app-button (clicked)="closeDialog()" text="confirm"></app-button>
+  </div>
 </div>

@@ -20,6 +20,7 @@ export class BookTimeComponent implements OnInit {
   form = this.formBuilder.group({
     start: new FormControl('', [Validators.required, hoursValidator()]),
     end: new FormControl('', [Validators.required, hoursValidator()]),
+    title: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -34,6 +35,7 @@ export class BookTimeComponent implements OnInit {
       this.isUpdate = true;
       this.start.setValue(this.getTimeToSet(appointment.start));
       this.end.setValue(this.getTimeToSet(appointment.end));
+      this.title.setValue(appointment.title);
     }
   }
 
@@ -59,5 +61,9 @@ export class BookTimeComponent implements OnInit {
 
   get end(): FormControl {
     return this.form.get('end') as FormControl;
+  }
+
+  get title(): FormControl {
+    return this.form.get('title') as FormControl;
   }
 }

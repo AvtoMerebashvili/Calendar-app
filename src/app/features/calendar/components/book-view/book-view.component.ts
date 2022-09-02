@@ -53,6 +53,7 @@ export class BookViewComponent implements OnInit {
               startMin: appointment.start.split(':')[1] || null,
               endHour: appointment.end.split(':')[0],
               endMin: appointment.end.split(':')[1] || null,
+              title: appointment.title,
             },
           };
         }),
@@ -68,6 +69,7 @@ export class BookViewComponent implements OnInit {
               this.dateState.setHours(appointment.endHour, appointment.endMin)
             ),
             id: getRandomId(),
+            title: appointment.title,
           };
           return { update, newAppointment: newAppointment, toDeleteId };
         }),
